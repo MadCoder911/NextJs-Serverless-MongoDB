@@ -2,8 +2,7 @@ import classes from "./notification.module.css";
 import { useNotificatinContext } from "../../context/notification-context";
 
 function Notification() {
-  const { title, message, status } = useNotificatinContext();
-  console.log(title, message, status);
+  const { title, message, status, show } = useNotificatinContext();
 
   let statusClasses = "";
 
@@ -18,8 +17,9 @@ function Notification() {
   if (status === "pending") {
     statusClasses = classes.pending;
   }
+  let hiddenClass = show ? classes.show : classes.hide;
 
-  const activeClasses = `${classes.notification} ${statusClasses}`;
+  const activeClasses = `${classes.notification} ${statusClasses} ${hiddenClass}`;
 
   return (
     <div className={activeClasses}>

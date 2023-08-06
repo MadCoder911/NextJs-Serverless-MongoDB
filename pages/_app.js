@@ -3,7 +3,11 @@ import Head from "next/head";
 import Layout from "../components/layout/layout";
 import "../styles/globals.css";
 import Notification from "../components/notification/notification";
-import { NotificatinProvider } from "../context/notification-context";
+import {
+  NotificatinProvider,
+  useNotificatinContext,
+} from "../context/notification-context";
+
 function MyApp({ Component, pageProps }) {
   return (
     <NotificatinProvider>
@@ -18,7 +22,8 @@ function MyApp({ Component, pageProps }) {
         </Head>
 
         <Component {...pageProps} />
-        <Notification title="Test" message="This is a test" status="pending" />
+
+        <Notification />
       </Layout>
     </NotificatinProvider>
   );

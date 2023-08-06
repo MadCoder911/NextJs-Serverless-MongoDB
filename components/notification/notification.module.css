@@ -11,6 +11,7 @@
   color: white;
   padding: 0.5rem 10%;
   box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease-in-out;
 }
 
 .notification h2 {
@@ -29,4 +30,11 @@
 
 .error {
   background-color: #e65035;
+}
+
+.hide {
+  transform: translateY(100px);
+}
+.show {
+  transform: translateY(0px);
 }

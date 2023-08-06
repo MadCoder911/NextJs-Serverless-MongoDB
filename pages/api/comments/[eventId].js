@@ -35,7 +35,7 @@ const handler = async (req, res) => {
     const db = client.db();
     const allDocs = await db
       .collection("comments")
-      .find()
+      .find({ eventId: eventId })
       .sort({ _id: -1 })
       .toArray();
     res.status(200).json({ comments: allDocs });

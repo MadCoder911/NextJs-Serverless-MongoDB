@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import CommentList from "./comment-list";
 import NewComment from "./new-comment";
 import classes from "./comments.module.css";
-
+import { useNotificatinContext } from "../../context/notification-context";
 function Comments(props) {
   const { eventId } = props;
-
+  const { changeState } = useNotificatinContext();
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState([]);
   useEffect(() => {
@@ -18,12 +18,19 @@ function Comments(props) {
         });
     }
   }, [showComments]);
- 
+
   function toggleCommentsHandler() {
     setShowComments((prevStatus) => !prevStatus);
   }
 
   function addCommentHandler(commentData) {
+    changeState({
+      title: "Posting..",
+      message: "Your comment is being posted...",
+      status: "pending",
+      show: true,
+    });
+
     fetch(`/api/comments/${eventId}`, {
       method: "POST",
       body: JSON.stringify(commentData),
@@ -32,7 +39,23 @@ function Comments(props) {
       },
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        changeState({
+          title: "Success...",
+          message: "Your comment has been posted",
+          status: "success",
+          show: true,
+        });
+
+        setTimeout(() => {
+          changeState({
+            title: "",
+            message: "",
+            status: "success",
+            show: false,
+          });
+        }, 3000);
+      });
     // send data to API
   }
 

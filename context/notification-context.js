@@ -4,17 +4,18 @@ import reducer from "../reducers/notificationsReducer";
 const initialState = {
   title: "Signing up...",
   message: "Registering for newsletter",
-  status: "success", // success, error
+  status: "pending", // success, error
+  show: false,
 };
 const NotificatinContext = React.createContext();
 
 export const NotificatinProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   //show notificaitons
-  const changeState = (title, message, status) => {
+  const changeState = ({ title, message, status, show }) => {
     dispatch({
       type: "UPDATE_STATE",
-      payload: { title, message, status },
+      payload: { title, message, status, show },
     });
   };
   //hide notifications

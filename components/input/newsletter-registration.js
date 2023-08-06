@@ -19,7 +19,8 @@ function NewsletterRegistration() {
       changeState({
         title: "Signing up...",
         message: "Registering for newsletter.",
-        staus: "pending",
+        status: "pending",
+        show: true,
       });
       fetch("/api/newsletter", {
         method: "POST",
@@ -34,8 +35,17 @@ function NewsletterRegistration() {
             changeState({
               title: "You have been signed up.",
               message: "You have been registered to our newsletter.",
-              staus: "success",
+              status: "success",
+              show: true,
             });
+            setTimeout(() => {
+              changeState({
+                title: "",
+                message: "",
+                status: "success",
+                show: false,
+              });
+            }, 3000);
           }
         });
     }
