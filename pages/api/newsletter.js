@@ -31,7 +31,10 @@ const handler = async (req, res) => {
       return;
     }
     try {
-      await insertDocument(client, { email: userEmail });
+      await insertDocument(client, {
+        email: userEmail,
+        time: new Date().toISOString(),
+      });
     } catch (err) {
       res.status(500).json({ message: "Inserting data failed." });
       return;
