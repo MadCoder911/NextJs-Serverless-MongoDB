@@ -1,10 +1,8 @@
 import { MongoClient } from "mongodb";
 const handler = async (req, res) => {
   const eventId = req.query.eventId;
-  console.log(eventId);
-  const client = await MongoClient.connect(
-    "mongodb+srv://test2:test2@cluster1.656gljt.mongodb.net/events?retryWrites=true&w=majority"
-  );
+  const connectionString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@cluster1.656gljt.mongodb.net/events?retryWrites=true&w=majority`;
+  const client = await MongoClient.connect(connectionString);
   if (req.method === "POST") {
     const { email, name, text } = req.body;
     //validation
